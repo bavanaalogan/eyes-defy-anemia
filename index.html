@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eyes Defy Anemia - Medical Analysis Platform</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-eye medical-icon"></i>
+                <span>Eyes Defy Anemia</span>
+            </div>
+            <nav class="nav">
+                <a href="#home" class="nav-link active">Home</a>
+                <a href="#analysis" class="nav-link">Analysis</a>
+                <a href="#results" class="nav-link">Results</a>
+                <a href="#about" class="nav-link">About</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="hero-title">Advanced Anemia Detection</h1>
+                    <p class="hero-subtitle">Upload eye images for instant anemia and hemoglobin level analysis using AI-powered medical technology</p>
+                    <div class="hero-stats">
+                        <div class="stat">
+                            <div class="stat-number">74.6%</div>
+                            <div class="stat-label">Model Accuracy</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">1.26</div>
+                            <div class="stat-label">MAE Score</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">218</div>
+                            <div class="stat-label">Training Samples</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Analysis Section -->
+        <section id="analysis" class="analysis-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Medical Image Analysis</h2>
+                    <p>Upload clear images of the inner eyelid for accurate anemia detection</p>
+                </div>
+
+                <div class="analysis-grid">
+                    <!-- Upload Area -->
+                    <div class="upload-card">
+                        <h3><i class="fas fa-upload"></i> Image Upload</h3>
+                        <div class="upload-area" id="uploadArea">
+                            <div class="upload-content">
+                                <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                                <p>Drag & drop your images here</p>
+                                <span>or</span>
+                                <button class="upload-btn" id="uploadBtn">
+                                    <i class="fas fa-folder-open"></i>
+                                    Browse Files
+                                </button>
+                                <input type="file" id="fileInput" accept="image/*" multiple hidden>
+                                <div class="upload-info">
+                                    <small>Supported formats: JPG, PNG, WEBP (Max: 10MB)</small>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Image Preview -->
+                        <div class="image-preview" id="imagePreview"></div>
+                    </div>
+
+                    <!-- Patient Information -->
+                    <div class="patient-card">
+                        <h3><i class="fas fa-user-md"></i> Patient Information</h3>
+                        <form class="patient-form" id="patientForm">
+                            <div class="form-group">
+                                <label for="patientName">Full Name</label>
+                                <input type="text" id="patientName" required>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="age">Age</label>
+                                    <input type="number" id="age" min="1" max="120" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="gender">Gender</label>
+                                    <select id="gender" required>
+                                        <option value="">Select</option>
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="symptoms">Symptoms (Optional)</label>
+                                <div class="checkbox-group">
+                                    <label class="checkbox-item">
+                                        <input type="checkbox" value="fatigue"> Fatigue
+                                    </label>
+                                    <label class="checkbox-item">
+                                        <input type="checkbox" value="weakness"> Weakness
+                                    </label>
+                                    <label class="checkbox-item">
+                                        <input type="checkbox" value="shortness"> Shortness of breath
+                                    </label>
+                                    <label class="checkbox-item">
+                                        <input type="checkbox" value="dizziness"> Dizziness
+                                    </label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Analyze Button -->
+                <div class="analyze-section">
+                    <button class="analyze-btn" id="analyzeBtn" disabled>
+                        <i class="fas fa-microscope"></i>
+                        <span>Analyze Images</span>
+                        <div class="loader" id="loader"></div>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Results Section -->
+        <section id="results" class="results-section" style="display: none;">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Analysis Results</h2>
+                    <p>Your medical analysis results are ready</p>
+                </div>
+
+                <div class="results-grid">
+                    <!-- Main Results Card -->
+                    <div class="result-card main-result">
+                        <h3>Anemia Status</h3>
+                        <div class="result-status" id="anemiaStatus">
+                            <div class="status-indicator"></div>
+                            <span class="status-text">Analyzing...</span>
+                        </div>
+                        <div class="confidence-meter">
+                            <label>Confidence Level</label>
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="confidenceBar"></div>
+                            </div>
+                            <span class="confidence-value" id="confidenceValue">0%</span>
+                        </div>
+                    </div>
+
+                    <!-- Hemoglobin Level -->
+                    <div class="result-card">
+                        <h3>Estimated Hemoglobin Level</h3>
+                        <div class="hemoglobin-display">
+                            <div class="hb-value" id="hbValue">--</div>
+                            <div class="hb-unit">g/dL</div>
+                        </div>
+                        <div class="hb-range">
+                            <div class="range-indicator">
+                                <span class="range-label">Normal Range</span>
+                                <span class="range-values" id="normalRange">12.0-15.5 g/dL</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Risk Assessment -->
+                    <div class="result-card">
+                        <h3>Risk Assessment</h3>
+                        <div class="risk-levels">
+                            <div class="risk-item">
+                                <span class="risk-label">Mild Anemia</span>
+                                <div class="risk-bar">
+                                    <div class="risk-fill mild" id="mildRisk"></div>
+                                </div>
+                            </div>
+                            <div class="risk-item">
+                                <span class="risk-label">Moderate Anemia</span>
+                                <div class="risk-bar">
+                                    <div class="risk-fill moderate" id="moderateRisk"></div>
+                                </div>
+                            </div>
+                            <div class="risk-item">
+                                <span class="risk-label">Severe Anemia</span>
+                                <div class="risk-bar">
+                                    <div class="risk-fill severe" id="severeRisk"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recommendations -->
+                    <div class="result-card recommendations">
+                        <h3>Medical Recommendations</h3>
+                        <div class="recommendation-list" id="recommendations">
+                            <!-- Recommendations will be populated by JavaScript -->
+                        </div>
+                        <div class="medical-disclaimer">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <p><strong>Medical Disclaimer:</strong> This analysis is for informational purposes only and should not replace professional medical advice. Please consult with a healthcare provider for proper diagnosis and treatment.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="results-actions">
+                    <button class="action-btn secondary" id="newAnalysisBtn">
+                        <i class="fas fa-plus"></i>
+                        New Analysis
+                    </button>
+                    <button class="action-btn primary" id="downloadReportBtn">
+                        <i class="fas fa-download"></i>
+                        Download Report
+                    </button>
+                    <button class="action-btn primary" id="shareResultsBtn">
+                        <i class="fas fa-share"></i>
+                        Share Results
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="about-section">
+            <div class="container">
+                <div class="about-content">
+                    <h2>About Eyes Defy Anemia</h2>
+                    <div class="about-grid">
+                        <div class="about-card">
+                            <i class="fas fa-brain"></i>
+                            <h3>AI-Powered Analysis</h3>
+                            <p>Advanced machine learning algorithms analyze conjunctival pallor to detect anemia with high accuracy.</p>
+                        </div>
+                        <div class="about-card">
+                            <i class="fas fa-shield-alt"></i>
+                            <h3>Medical Grade Security</h3>
+                            <p>HIPAA-compliant data handling ensures your medical information remains secure and private.</p>
+                        </div>
+                        <div class="about-card">
+                            <i class="fas fa-clock"></i>
+                            <h3>Instant Results</h3>
+                            <p>Get your anemia screening results in seconds, enabling faster medical decision-making.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="logo">
+                        <i class="fas fa-eye medical-icon"></i>
+                        <span>Eyes Defy Anemia</span>
+                    </div>
+                    <p>Advanced medical imaging analysis for anemia detection and hemoglobin level estimation.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Medical Services</h4>
+                    <ul>
+                        <li><a href="#">Anemia Screening</a></li>
+                        <li><a href="#">Hemoglobin Analysis</a></li>
+                        <li><a href="#">Risk Assessment</a></li>
+                        <li><a href="#">Medical Reports</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Eyes Defy Anemia. All rights reserved. | Medical Device Disclaimer: For research and educational purposes.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
